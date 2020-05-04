@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <title>Tirage de deux liste</title>
+
+    <style>
+        body{
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+            text-align: center;
+        }
+        textarea{
+            border-radius: 10px;
+        }
+        button{
+            background-color: darkblue;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        #result{
+            border: solid #b1b1b1 1px;
+            border-radius: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div style="color: gray; font-style: italic;">
+            Chaque éléments des listes doivent être séparé par un retour à la ligne.<br>
+            Les éléments de droites seront unique. Ceux de gauche seront redondants.
+        </div>
+        <br>
+        <div>
+            <textarea id="lUnique" cols="30" rows="11"></textarea>
+<textarea name="" id="lMulti" cols="30" rows="11">
+Azorius - Blanc Bleu
+Dimir - Bleu Noir
+Rakdos - Noir Rouge
+Gruul - Rouge Vert
+Selesnya - Vert Blanc
+Orzhov - Blanc Noir
+Golgari - Noir Vert
+Simic - Vert Bleu
+Izzet - Bleu Rouge
+Boros - Rouge Blanc
+</textarea>
+        </div>
+        <div>
+            <button id="start">Tirer au sort</button>
+        </div>
+        <br>
+        <div id="result">
+
+        </div>
+    </div>
+</body>
+<script>
+    $("body").width($( window ).width() * 0.4)
+
+
+    $("#start").click(function click(){
+        let lUniqueStr = $("#lUnique").val();
+        let lMultiStr = $("#lMulti").val();
+
+        let lUnique = lUniqueStr.split('\n');
+        let lMulti = lMultiStr.split('\n');
+
+        for(let i = 0; i < lUnique.length; i++)
+        {
+            if(lUnique[i] == "")
+                lUnique.splice(i, 1)
+        }
+        for(let j = 0; j < lMulti.length; j++)
+        {
+            if(lMulti[j] == "")
+                lMulti.splice(j, 1);
+        }
+        
+        lUnique = randomize(lUnique)
+
+        let aff = "";
+        lUnique.forEach(function(elem, index) {
+            let tmp = randomize(lMulti)
+            lUnique[index] = elem + " => " + tmp[0];
+            aff += lUnique[index] + "<br>";
+        })
+
+        display(lUnique)
+
+        $("#result").html(aff)
+    })
+
+    function randomize(tab)
+    {
+        for(var i = 0; i < tab.length; i++)
+        {
+            let index = parseInt((Math.random()*100000) % tab.length);
+            let tmp = tab[i];
+            tab[i] = tab[index];
+            tab[index] = tmp;
+        }
+        
+        return tab;
+    }
+
+    function display(tab)
+    {
+        tab.forEach(element => {
+            console.log(element)
+        });
+    }
+</script>
+</html>
