@@ -95,8 +95,13 @@ Boros - Rouge Blanc
                 i = 0;
             }
             lUnique[index] = elem + " => " + tmp[i];
-            aff += lUnique[index] + "<br>";
+            //aff += lUnique[index] + "<br>";
             i++;
+        })
+
+        lUnique.sort();
+        lUnique.forEach(elem =>{
+            aff += elem + "<br>"
         })
 
         display(lUnique)
