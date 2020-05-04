@@ -86,10 +86,17 @@ Boros - Rouge Blanc
         lUnique = randomize(lUnique)
 
         let aff = "";
+        let i = 0;
+        let tmp = randomize(lMulti);
         lUnique.forEach(function(elem, index) {
-            let tmp = randomize(lMulti)
-            lUnique[index] = elem + " => " + tmp[0];
+            if(index % lMulti.length == 0)
+            {
+                tmp = randomize(lMulti)
+                i = 0;
+            }
+            lUnique[index] = elem + " => " + tmp[i];
             aff += lUnique[index] + "<br>";
+            i++;
         })
 
         display(lUnique)
